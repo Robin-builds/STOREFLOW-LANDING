@@ -33,7 +33,7 @@ las pantallas avanzan en orden, con leyenda visible y en bucle.
 
 **Acceptance Scenarios**:
 
-1. **Given** la landing recién cargada, **When** el visitante no interactúa, **Then** la primera pantalla y su leyenda se ven de inmediato y cada ~4 s se pasa a la siguiente con un fundido suave.
+1. **Given** la landing recién cargada, **When** el visitante no interactúa, **Then** la primera pantalla y su leyenda se ven de inmediato y cada ~2 s se pasa a la siguiente con un fundido suave.
 2. **Given** la última pantalla visible, **When** se cumple el intervalo, **Then** el recorrido vuelve a la primera.
 3. **Given** una pantalla cuyo archivo aún no existe, **When** le toca mostrarse, **Then** se ve el placeholder "Captura pendiente" con su ruta esperada, y la leyenda igual se muestra.
 
@@ -65,7 +65,7 @@ Una persona con "reducir movimiento" activado en su sistema ve la primera pantal
 automático ni fundidos; puede cambiar de pantalla con los indicadores y el cambio es instantáneo.
 Una persona con lector de pantalla oye la región como "carrusel", con un nombre que la describe; los
 controles tienen nombres claros ("Mostrar pantalla 2 de 5: Escanea tus productos") y la pantalla
-activa se anuncia solo cuando la elige ella, no cada 4 segundos.
+activa se anuncia solo cuando la elige ella, no cada 2 segundos.
 
 **Why this priority**: Principio V de la constitución; un carrusel mal hecho es una de las peores barreras de accesibilidad.
 
@@ -119,7 +119,7 @@ incluso al cambiar de tema con el botón sin recargar.
 
 **Comportamiento**
 
-- **FR-004**: Al cargar, MUST verse la primera pantalla y su leyenda; el recorrido MUST avanzar solo cada ~4 s, en bucle, con un fundido suave entre pantallas.
+- **FR-004**: Al cargar, MUST verse la primera pantalla y su leyenda; el recorrido MUST avanzar solo cada ~2 s, en bucle, con un fundido suave entre pantallas.
 - **FR-005**: MUST existir un indicador por pantalla, operable con puntero, toque y teclado, que muestra esa pantalla; el indicador activo MUST distinguirse visualmente sin depender solo del color.
 - **FR-006**: Activar un indicador MUST detener el avance automático de forma persistente para esa visita (hasta que el visitante active "Reanudar").
 - **FR-007**: MUST existir un botón visible de pausar/reanudar mientras haya avance automático.
@@ -167,5 +167,5 @@ incluso al cambiar de tema con el botón sin recargar.
 - Las capturas miden 1080×2340 (9:19,5); el marco del teléfono usa esa misma proporción para no recortarlas.
 - La variante oscura se detecta por convención: mismo nombre con `-oscuro` antes de la extensión (`bodega.png` → `bodega-oscuro.png`) y mismas dimensiones.
 - Tomar el control con un indicador detiene el avance para esa visita (patrón recomendado de carruseles accesibles); no se persiste entre visitas.
-- Intervalo de 4 s y fundido de ~400 ms; ambos ajustables.
+- Intervalo de 2 s (ajustado desde 4 s el 2026-11-08 a pedido del owner) y fundido de ~400 ms; ambos ajustables.
 - Fuera de alcance: gestos de deslizar (swipe), flechas anterior/siguiente, capturas en otras secciones, video.

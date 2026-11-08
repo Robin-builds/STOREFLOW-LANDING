@@ -12,7 +12,8 @@ import { landing } from "@/content/landing";
  * Sin JavaScript, data-active="0" viene en el HTML: se ve la primera pantalla completa.
  */
 
-const INTERVAL_MS = 4000;
+// 2 s por pantalla (pedido del owner, 2026-11-08); el fundido de 500 ms va incluido
+const INTERVAL_MS = 2000;
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
 // Movimiento reducido. En el servidor se asume "reducido": nada se mueve antes de hidratar.
