@@ -117,7 +117,7 @@ description: "Task list for brand identity, Ingresar access and dark mode"
 - [X] T039 Ejecutar W15 y W17 (Lighthouse móvil) en ambos temas; corregir hasta A11y ≥ 95, Perf ≥ 90, SEO ≥ 95 y 0 fallas de contraste
 - [X] T040 Ejecutar W19 (búsqueda de veracidad) y verificar que componentes no tienen URLs ni copy literal (`grep -rnE "https?://" src/components`); único `"use client"` en `ThemeToggle.tsx`
 - [X] T041 Actualizar `specs/001-storeflow-landing/quickstart.md` (placeholders: favicon y logo ya resueltos)
-- [ ] T042 (Con OK del owner) Commit `feat: identidad de marca, Ingresar y modo oscuro (spec 002)`, push de `002-brand-dark-mode` y deploy/preview en Vercel
+- [X] T042 (Con OK del owner) Commit `feat: identidad de marca, Ingresar y modo oscuro (spec 002)`, push de `002-brand-dark-mode` y deploy/preview en Vercel
 
 ---
 
