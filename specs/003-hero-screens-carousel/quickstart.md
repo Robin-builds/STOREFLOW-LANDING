@@ -15,7 +15,7 @@ reconstruir y **borrarla antes de entregar** (Principio I: solo capturas reales)
 
 | # | Paso | Resultado esperado |
 |---|------|--------------------|
-| 1 | Cargar a 360 px y esperar 30 s | Avanza cada ~2 s en orden 1→6→1 con fundido; la leyenda cambia; nada fuera del teléfono se mueve |
+| 1 | Cargar a 360 px y esperar 30 s | Avanza cada ~2,5 s en orden 1→6→1 con fundido; la leyenda cambia; nada fuera del teléfono se mueve |
 | 2 | Pasar el mouse sobre el teléfono (1440 px) | Se detiene; al salir, se reanuda |
 | 3 | Tab hasta los controles | Foco visible en pausa e indicadores; el avance se detiene mientras haya foco dentro |
 | 4 | Activar el indicador 3 | Muestra pantalla 3 y se detiene; el botón pasa a "Reanudar recorrido" |

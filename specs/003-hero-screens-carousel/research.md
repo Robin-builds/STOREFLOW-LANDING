@@ -52,7 +52,7 @@ Fuentes verificadas en la versión instalada (Next 16.4.5, AGENTS.md):
 
 ## R4. Temporizador, pausa y movimiento reducido
 
-- **Decision**: `setTimeout` de 2000 ms (originalmente 4000; bajado a 2 s el 2026-11-08) que se reprograma en cada cambio de índice (no `setInterval`);
+- **Decision**: `setTimeout` de 2500 ms (originalmente 4000; bajado a 2,5 s el 2026-11-08) que se reprograma en cada cambio de índice (no `setInterval`);
   corre solo si `playing && !hovering && !focusWithin && !reducedMotion && document.visibilityState === "visible"`.
   Movimiento reducido leído con `matchMedia("(prefers-reduced-motion: reduce)")` vía `useSyncExternalStore`
   (servidor = "reducido" para no arrancar nada antes de hidratar). Fundido de 500 ms con
