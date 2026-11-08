@@ -41,6 +41,20 @@ export type Screenshot = {
   height: number;
 };
 
+/**
+ * Pantalla del recorrido del hero (spec 003). La leyenda va sin número: el "1. " lo agrega
+ * el orden de la lista, así reordenar no deja números desfasados. Máx. ~32 caracteres
+ * para que quepa en 2 líneas a 248 px.
+ * Variante oscura opcional por convención: "x.png" → "x-oscuro.png" (mismas dimensiones).
+ */
+export type HeroScreen = Screenshot & { caption: string };
+
+// Tupla de 4, 5 o 6: un largo fuera de rango rompe el typecheck de `next build`
+export type HeroScreens =
+  | [HeroScreen, HeroScreen, HeroScreen, HeroScreen]
+  | [HeroScreen, HeroScreen, HeroScreen, HeroScreen, HeroScreen]
+  | [HeroScreen, HeroScreen, HeroScreen, HeroScreen, HeroScreen, HeroScreen];
+
 /* ------------------------------------------------------------------ */
 /* URLs: cambiar aquí actualiza todos los botones y enlaces            */
 /* ------------------------------------------------------------------ */
@@ -110,12 +124,71 @@ export const landing = {
     secondary: { label: "Ver cómo funciona", href: "#como-funciona" },
     note: "Gratis para empezar · App para Android",
     loginLine: { text: "¿Ya usas StoreFlow?", link: "Ingresa a la versión web" },
-    screenshot: {
-      src: "/screens/inicio.png",
-      alt: "Pantalla de inicio de StoreFlow en un celular Android",
-      width: 1080,
-      height: 2400,
-    } satisfies Screenshot,
+    /*
+     * Recorrido del teléfono (spec 003): capturas REALES en /public/screens/ (Principio I).
+     * Las leyendas siguen "Cómo funciona" y los beneficios ya publicados.
+     * El alt describe solo lo que se ve. La app no muestra quién hizo cada movimiento:
+     * nada asociado a historial.png puede decir "quién movió qué". La tarjeta "próximos a
+     * vencer" de inicio.png tiene datos de prueba: no se menciona en alt ni leyenda.
+     * La primera pantalla es la imagen principal del hero (LCP) y la única visible sin JS.
+     */
+    screens: [
+      {
+        src: "/screens/inicio.png",
+        alt: "Pantalla de inicio de StoreFlow de la Bodega Principal, con productos bajo stock mínimo, productos, bodegas, historial y usuarios",
+        width: 1080,
+        height: 2340,
+        caption: "Ve tu bodega de un vistazo",
+      },
+      {
+        src: "/screens/bodega.png",
+        alt: "Lista de bodegas de una empresa en StoreFlow, con su ciudad y la bodega activa marcada",
+        width: 1080,
+        height: 2340,
+        caption: "Crea tus bodegas",
+      },
+      {
+        src: "/screens/escanear.png",
+        alt: "Escáner de StoreFlow leyendo con la cámara del celular el código de barras de una caja de producto",
+        width: 1080,
+        height: 2340,
+        caption: "Escanea tus productos",
+      },
+      {
+        src: "/screens/movimiento.png",
+        alt: "Diálogo de StoreFlow para registrar la salida de 12 unidades de un producto, con 151 disponibles y razón «Despacho a local»",
+        width: 1080,
+        height: 2340,
+        caption: "Registra entradas y salidas",
+      },
+      {
+        src: "/screens/alerta-stock.png",
+        alt: "Alertas de StoreFlow con productos bajo stock mínimo, su stock actual y su mínimo",
+        width: 1080,
+        height: 2340,
+        caption: "Revisa qué está por acabarse",
+      },
+      {
+        src: "/screens/historial.png",
+        alt: "Historial de movimientos de StoreFlow con entradas, SKU, cantidad, motivo y fecha",
+        width: 1080,
+        height: 2340,
+        caption: "Cada movimiento queda registrado",
+      },
+    ] satisfies HeroScreens,
+    // Textos de control y accesibilidad del recorrido (no todos visibles, pero son copy)
+    carousel: {
+      regionLabel: "Recorrido por las pantallas de StoreFlow",
+      roleDescription: "carrusel",
+      slideRoleDescription: "pantalla",
+      slideLabel: (n: number, total: number) => `${n} de ${total}`,
+      goTo: (n: number, total: number, caption: string) =>
+        `Mostrar pantalla ${n} de ${total}: ${caption}`,
+      announce: (n: number, total: number, caption: string) =>
+        `Pantalla ${n} de ${total}: ${caption}`,
+      pause: "Pausar recorrido",
+      play: "Reanudar recorrido",
+    },
     // Se muestra en el mockup mientras no exista la captura real en /public/screens/
     screenshotPending: "Captura pendiente",
   },

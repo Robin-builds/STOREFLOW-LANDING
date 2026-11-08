@@ -17,7 +17,7 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate overflow-hidden bg-[linear-gradient(180deg,var(--bg-top),var(--bg-mid)_60%,var(--bg-bottom))]"
     >
-      <Container className="grid items-center gap-14 pt-10 pb-20 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pt-24 lg:pb-28">
+      <Container className="grid items-center gap-14 pt-10 pb-20 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pt-16 lg:pb-24">
         <div className="max-w-2xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium text-fg-2">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-ok" />
@@ -72,7 +72,7 @@ export function Hero() {
             aria-hidden="true"
             className="absolute top-1/2 left-1/2 -z-10 size-[min(30rem,90vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-cyan/15 blur-3xl"
           />
-          <PhoneMockup screenshot={hero.screenshot} pendingLabel={hero.screenshotPending} />
+          <PhoneMockup screens={hero.screens} pendingLabel={hero.screenshotPending} />
         </div>
       </Container>
     </section>

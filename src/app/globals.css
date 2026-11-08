@@ -205,6 +205,68 @@
   display: none;
 }
 
+/*
+ * ---------- Recorrido de capturas del hero (spec 003) ----------
+ * ScreensCarousel publica la pantalla activa en data-active. Aquí se muestra solo esa:
+ * opacity da el fundido y visibility saca las inactivas del árbol de accesibilidad y del
+ * orden de foco (transiciona de forma discreta, así el fundido de salida se alcanza a ver).
+ * Con movimiento reducido, la regla global de abajo deja la transición en ~0 ms.
+ */
+[data-slide] {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 500ms ease,
+    visibility 500ms;
+}
+[data-carousel][data-active="0"] [data-slide="0"],
+[data-carousel][data-active="1"] [data-slide="1"],
+[data-carousel][data-active="2"] [data-slide="2"],
+[data-carousel][data-active="3"] [data-slide="3"],
+[data-carousel][data-active="4"] [data-slide="4"],
+[data-carousel][data-active="5"] [data-slide="5"] {
+  opacity: 1;
+  visibility: visible;
+}
+/* Antes del `load` las pantallas 2..N no existen para el navegador: no compiten con el LCP */
+[data-carousel]:not([data-armed]) [data-slide]:not([data-slide="0"]) {
+  display: none;
+}
+
+/* Entrada suave de la leyenda al cambiar de pantalla */
+.carousel-caption-in {
+  animation: carousel-caption-in 400ms ease-out;
+}
+@keyframes carousel-caption-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/*
+ * Capturas por tema: solo se usan cuando existe el par "x.png" / "x-oscuro.png".
+ * Misma lógica que los tokens: data-theme manda; sin él, se sigue al sistema (oscuro por defecto).
+ * Con loading="lazy", la versión en display:none no se descarga.
+ */
+.screen-dark {
+  display: none;
+}
+[data-theme="dark"] .screen-dark {
+  display: block;
+}
+[data-theme="dark"] .screen-light {
+  display: none;
+}
+@media not (prefers-color-scheme: light) {
+  :root:not([data-theme]) .screen-dark {
+    display: block;
+  }
+  :root:not([data-theme]) .screen-light {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
