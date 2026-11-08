@@ -49,6 +49,8 @@
   --on-ok: #0d1519;
   --wordmark-store: var(--brand-cyan);
   --elev-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  /* Sombra de tarjeta resaltada (spec 004): mismos tonos, más profunda */
+  --elev-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 20px 40px -16px rgb(0 0 0 / 0.7);
   --elev-phone: 0 2px 4px rgb(0 0 0 / 0.4), 0 40px 80px -24px rgb(0 0 0 / 0.7);
 }
 
@@ -77,6 +79,7 @@
   --on-ok: #ffffff;
   --wordmark-store: var(--brand-ink);
   --elev-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --elev-card-hover: 0 2px 4px rgb(15 23 42 / 0.06), 0 16px 32px -12px rgb(15 23 42 / 0.2);
   --elev-phone: 0 2px 4px rgb(15 23 42 / 0.08), 0 40px 80px -24px rgb(15 23 42 / 0.35);
 }
 
@@ -109,6 +112,7 @@
     --on-ok: #ffffff;
     --wordmark-store: var(--brand-ink);
     --elev-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+    --elev-card-hover: 0 2px 4px rgb(15 23 42 / 0.06), 0 16px 32px -12px rgb(15 23 42 / 0.2);
     --elev-phone: 0 2px 4px rgb(15 23 42 / 0.08), 0 40px 80px -24px rgb(15 23 42 / 0.35);
   }
 }
@@ -143,6 +147,7 @@
   --color-wordmark-store: var(--wordmark-store);
 
   --shadow-card: var(--elev-card);
+  --shadow-card-hover: var(--elev-card-hover);
   --shadow-phone: var(--elev-phone);
 
   /* Plus Jakarta Sans, la tipografía de la app (Type.kt), inyectada por next/font */
@@ -264,6 +269,110 @@
   }
   :root:not([data-theme]) .screen-light {
     display: none;
+  }
+}
+
+/*
+ * ---------- Estados de interacción (spec 004) ----------
+ * .card-hover  tarjeta que se resalta (borde primario, sombra más marcada, sube 3 px)
+ * .card-ghost  ítem sin caja visible: la caja existe pero es invisible hasta resaltarse
+ * .card-icon   contenedor del ícono principal: se llena de primario cuando su tarjeta se resalta
+ * .faq-toggle  botón "+" de la FAQ: señal leve en hover/foco, primario cuando la pregunta está abierta
+ *
+ * Reglas fuera de @layer a propósito: así ganan a las utilidades de Tailwind (border-line,
+ * bg-accent/12…) sin !important. Por lo mismo, en reposo NO declaran borde, fondo ni sombra
+ * (pisarían las utilidades de cada componente); solo la transición.
+ * Hover solo con puntero fino que permite hover: en táctil no quedan estados pegados.
+ * Movimiento (translate/scale) solo sin movimiento reducido; con él cambian solo colores y sombra.
+ * Se usan las propiedades translate/scale/rotate (no transform) porque Tailwind 4 aplica
+ * rotate-45 con la propiedad rotate: así no se pisan entre sí y todo queda en la composición.
+ */
+.card-hover,
+.card-icon,
+.faq-toggle {
+  transition-property: translate, scale, rotate, box-shadow, border-color, background-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+
+/* Caja invisible: el margen negativo compensa relleno + borde, así el contenido no se mueve.
+   13 px caben en el gutter móvil de 16 px sin provocar scroll horizontal. */
+.card-ghost {
+  border: 1px solid transparent;
+  border-radius: var(--radius-card);
+  padding: 0.75rem;
+  margin: calc(-0.75rem - 1px);
+}
+
+/* Resaltado con teclado: un descendiente con foco visible (no se agregan tabindex) */
+.card-hover:has(:focus-visible) {
+  border-color: var(--primary);
+  box-shadow: var(--elev-card-hover);
+}
+.card-ghost.card-hover:has(:focus-visible) {
+  /* --card-lit-bg lo fija la sección cuando su fondo ya es surface (Beneficios) */
+  background-color: var(--card-lit-bg, var(--surface));
+}
+.card-hover:has(:focus-visible) .card-icon {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-hover:hover {
+    border-color: var(--primary);
+    box-shadow: var(--elev-card-hover);
+  }
+  .card-ghost.card-hover:hover {
+    background-color: var(--card-lit-bg, var(--surface));
+  }
+  /* El ícono reacciona al pasar por cualquier parte de la tarjeta, no solo por el ícono.
+     En Problemas pasa de naranja a primario: acento con ícono claro no llega a 3:1. */
+  .card-hover:hover .card-icon {
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+
+  /* FAQ cerrada: tono intermedio (primario mezclado con la superficie, sin colores nuevos).
+     :not([open]) hace que el estado abierto prevalezca aunque el mouse siga encima. */
+  details:not([open]) > summary:hover .faq-toggle {
+    background-color: color-mix(in srgb, var(--primary) 20%, var(--surface));
+  }
+}
+
+/* Movimiento: solo si el visitante no pidió reducirlo */
+@media (prefers-reduced-motion: no-preference) {
+  .card-hover:has(:focus-visible) {
+    translate: 0 -3px;
+  }
+  .card-hover:has(:focus-visible) .card-icon {
+    scale: 1.1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .card-hover:hover {
+    translate: 0 -3px;
+  }
+  .card-hover:hover .card-icon {
+    scale: 1.1;
+  }
+}
+
+/* FAQ: misma señal leve con foco de teclado sobre una pregunta cerrada */
+details:not([open]) > summary:focus-visible .faq-toggle {
+  background-color: color-mix(in srgb, var(--primary) 20%, var(--surface));
+}
+/* FAQ abierta: fondo primario y signo en contraste (el giro lo da group-open:rotate-45) */
+details[open] .faq-toggle {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Alto contraste del sistema: el modo de colores forzados pinta los bordes transparentes;
+   en reposo la caja invisible toma el color del fondo para seguir sin verse. */
+@media (forced-colors: active) {
+  .card-ghost {
+    border-color: Canvas;
   }
 }
 

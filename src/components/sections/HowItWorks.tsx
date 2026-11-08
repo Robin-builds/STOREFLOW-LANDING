@@ -22,13 +22,13 @@ export function HowItWorks() {
         />
 
         {howItWorks.steps.map((step, i) => (
-          <li key={step.title} className="relative flex flex-col items-center text-center">
+          <li key={step.title} className="card-hover card-ghost relative flex flex-col items-center text-center">
             {/* Número de paso con más peso visual: 56px, primario del tema */}
             <span className="relative grid size-14 place-items-center rounded-full bg-primary text-2xl font-extrabold text-on-primary shadow-card">
               <span className="sr-only">{a11y.step} </span>
               {i + 1}
             </span>
-            <span className="mt-6 grid size-11 place-items-center rounded-xl bg-primary/12 text-primary">
+            <span className="card-icon mt-6 grid size-11 place-items-center rounded-xl bg-primary/12 text-primary">
               <Icon name={step.icon} />
             </span>
             <h3 className="mt-4 text-xl font-semibold text-fg">{step.title}</h3>

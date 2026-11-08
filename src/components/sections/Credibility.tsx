@@ -17,8 +17,8 @@ export function Credibility() {
         </h2>
         <ul className="grid grid-cols-1 gap-6 min-[420px]:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {credibility.items.map((item) => (
-            <li key={item.title} className="flex items-start gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-primary shadow-card">
+            <li key={item.title} className="card-hover card-ghost flex items-start gap-3">
+              <span className="card-icon grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-primary shadow-card">
                 <Icon name={item.icon} className="size-5" />
               </span>
               <div>

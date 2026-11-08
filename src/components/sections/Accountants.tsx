@@ -13,7 +13,7 @@ export function Accountants() {
   return (
     <section aria-labelledby="contadores-title" className="bg-canvas py-section">
       <Container>
-        <div className="grid gap-10 rounded-[2rem] border border-accent/40 bg-surface-2 p-6 sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14">
+        <div className="card-hover grid gap-10 rounded-[2rem] border border-accent/40 bg-surface-2 p-6 sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14">
           <div>
             {/* accent-text: naranja legible como texto (en claro es #B45309) */}
             <p className="text-sm font-bold tracking-wide text-accent-text uppercase">{accountants.eyebrow}</p>

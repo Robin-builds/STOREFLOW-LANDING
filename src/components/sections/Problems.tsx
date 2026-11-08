@@ -10,8 +10,8 @@ export function Problems() {
     <Section titleId="problemas-title" title={problems.title} intro={problems.intro} tone="canvas">
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {problems.items.map((item) => (
-          <li key={item.title} className="rounded-card border border-line bg-surface p-6 shadow-card">
-            <span className="grid size-11 place-items-center rounded-xl bg-accent/12 text-accent">
+          <li key={item.title} className="card-hover rounded-card border border-line bg-surface p-6 shadow-card">
+            <span className="card-icon grid size-11 place-items-center rounded-xl bg-accent/12 text-accent">
               <Icon name={item.icon} />
             </span>
             <h3 className="mt-4 text-lg font-semibold text-fg">{item.title}</h3>

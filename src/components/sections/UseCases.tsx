@@ -10,8 +10,8 @@ export function UseCases() {
     <Section titleId="rubros-title" title={useCases.title} intro={useCases.intro} tone="surface">
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
         {useCases.items.map((item) => (
-          <li key={item.title} className="flex flex-col rounded-card border border-line bg-surface-2 p-6">
-            <span className="grid size-12 place-items-center rounded-2xl bg-primary/12 text-primary">
+          <li key={item.title} className="card-hover flex flex-col rounded-card border border-line bg-surface-2 p-6">
+            <span className="card-icon grid size-12 place-items-center rounded-2xl bg-primary/12 text-primary">
               <Icon name={item.icon} />
             </span>
             <h3 className="mt-5 text-xl font-semibold text-fg">{item.title}</h3>
