@@ -63,6 +63,8 @@ export const URLS = {
   // PLACEHOLDER: URL real de la política de privacidad.
   privacyPolicy: "https://chileapps.cl/privacidad",
   chileapps: "https://chileapps.cl",
+  // Inicio de sesión de la versión web (dashboard) para usuarios existentes
+  webAppLogin: "https://stockflow-web-eight.vercel.app/login",
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -79,17 +81,24 @@ export const landing = {
     ogImageAlt: "StoreFlow: controla tu stock desde el celular, aunque no haya internet",
   },
 
+  // Wordmark igual al de la app: "STORE" en cian y "FLOW" en naranja (DashboardScreen.kt)
+  brand: {
+    wordmark: { first: "STORE", second: "FLOW", accessibleName: "StoreFlow" },
+  },
+
   // Textos de apoyo para accesibilidad (no visibles, pero también son copy)
   a11y: {
     newTab: "(se abre en una pestaña nueva)",
     step: "Paso",
     home: "StoreFlow, ir al inicio",
     skip: "Saltar al contenido",
+    themeToggle: "Modo oscuro",
   },
 
   nav: {
-    wordmark: "StoreFlow",
     cta: ctaPrincipal,
+    // Acceso utilitario para usuarios existentes: no es conversión (Principio II)
+    login: { label: "Ingresar", href: URLS.webAppLogin } satisfies Cta,
   },
 
   hero: {
@@ -100,6 +109,7 @@ export const landing = {
     primary: ctaPrincipal,
     secondary: { label: "Ver cómo funciona", href: "#como-funciona" },
     note: "Gratis para empezar · App para Android",
+    loginLine: { text: "¿Ya usas StoreFlow?", link: "Ingresa a la versión web" },
     screenshot: {
       src: "/screens/inicio.png",
       alt: "Pantalla de inicio de StoreFlow en un celular Android",
@@ -342,10 +352,12 @@ export const landing = {
   },
 
   footer: {
-    brand: "StoreFlow",
+    navLabel: "Enlaces de StoreFlow",
     tagline: "Control de inventario para pymes chilenas.",
     byline: "StoreFlow by chileapps.cl",
     contactLabel: "Contacto",
     privacyLabel: "Política de privacidad",
+    loginLabel: "Ingresar a la versión web",
+    themeLabel: "Tema",
   },
 };

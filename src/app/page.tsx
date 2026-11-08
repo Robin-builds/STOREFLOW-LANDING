@@ -19,7 +19,7 @@ export default function Home() {
       {/* Enlace de salto: primer elemento enfocable, visible solo al recibir foco */}
       <a
         href="#contenido"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-button focus:bg-ink focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-button focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
       >
         {landing.a11y.skip}
       </a>

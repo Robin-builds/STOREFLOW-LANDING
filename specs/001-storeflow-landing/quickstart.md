@@ -55,4 +55,4 @@ Todos en `src/content/landing.ts` salvo los screenshots:
 - `URLS.whatsappNumber`: número real de contacto.
 - `URLS.privacyPolicy`: URL real de la política de privacidad.
 - `public/screens/inicio.png` (y los que declare `landing.ts`): capturas reales de la app.
-- `src/app/favicon.ico`: el del scaffold es el de Next; reemplazar por el ícono de StoreFlow.
+- ~~`src/app/favicon.ico`~~: resuelto en la spec 002 (`src/app/icon.png` = ícono de Play Store; logo original en header y footer).
